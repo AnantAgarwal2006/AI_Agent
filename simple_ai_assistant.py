@@ -14,7 +14,9 @@ messages=[]
 MAX_STEPS=5
 messages.append({
     "role":"system",
-    "content":"respond within 100 words"
+    "content":("answer general questiosn(programming,science,advice)from your own knowledge."
+    "use a tool ONLY when the user asks for the current time,wheather,city etc."
+    "keep answers under 100 words only.")
 })
 while True:
     user_input=input("\nUser:")
@@ -33,7 +35,7 @@ while True:
             messages=messages,
             tools=TOOLS,
         )
-        msg=response.choices[0].message
+        msg=response.choices[0].message.content
         if not msg.tool_calls:
             break
         log(f"Step{step+1}:model requested {len(msg.tool_calls)}")
